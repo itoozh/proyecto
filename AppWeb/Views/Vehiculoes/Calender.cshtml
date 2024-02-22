@@ -1,0 +1,366 @@
+﻿@{
+    ViewData["Title"] = "Calender";
+    var usuarioAutenticado = ViewData["UsuarioAutenticado"] as Usuario;
+    Console.WriteLine("Usuario autenticado en la vista: " + (usuarioAutenticado != null ? usuarioAutenticado.NombreUsuario : "null"));
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.js'></script>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css' />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/css/bootstrap.min.css" integrity="..." crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/js/bootstrap.bundle.min.js" integrity="..." crossorigin="anonymous"></script>
+    <!-- Agregar Font Awesome para íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="..." crossorigin="anonymous">
+
+    <link rel="stylesheet" href="~/css/site.css">
+</head>
+
+<body>
+    <div id='calendar' class="calendarcontainer"></div>
+
+    <!-- Modal para ingresar nombre del evento -->
+    <div class='modal fade' id='eventModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+        <div class='modal-dialog' role='document'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <h5 class='modal-title' id='exampleModalLabel'>Ingrese el nombre del evento</h5>
+                    <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                </div>
+                <div class='modal-body'>
+                    <form id='eventForm'>
+                        <div class='mb-3'>
+                            <label for='eventName' class='form-label'>Nombre del evento:</label>
+                            <input type='text' class='form-control' id='eventName' required>
+                        </div>
+                        <div class='mb-3'>
+                            <label for='eventEndTime'>Hora de finalización:</label>
+                            <select class='form-select' id='eventEndTime' required>
+                                <!-- Opciones de hora de finalización se generarán dinámicamente -->
+                            </select>
+                        </div>
+                        <p>El evento va a empezar desde la siguiente hora:</p>
+                        <p>Inicio: <span id='eventStartTime'></span></p>
+                        <!-- Puedes ocultar el siguiente campo si deseas -->
+                        <p>Fin: <span id='eventEndTimeDisplay'></span></p>
+                    </form>
+                    <div id="registrationMessage" class="mt-3"></div>
+                </div>
+                <div class='modal-footer'>
+                    <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cancelar</button>
+                    <button type='button' class='btn btn-primary' onclick='registerEvent()'>Registrar evento</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        console.log('Usuario autenticado:', @Html.Raw(Json.Serialize(usuarioAutenticado)));
+
+        let calendar;
+        let selectedEventRange;
+
+        document.addEventListener('DOMContentLoaded', function () {
+                
+            // Obtener el valor del claim UserIdClaim de la cookie de autenticación
+            const userIdClaim = getCookie('UserIdClaim');
+            console.log('UserIdClaim:', userIdClaim);
+
+            // Función para obtener el valor de una cookie por nombre
+            function getCookie(name) {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(';').shift();
+            }
+
+
+            const calendarEl = document.getElementById('calendar');
+            const IdAuto = getUrlParameter('idAuto');
+
+            calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'timeGridWeek',
+                headerToolbar: {
+                    left: 'prev,next',
+                    center: 'title',
+                    right: 'today'
+                },
+                selectable: true,
+                slotMinTime: '09:00:00',
+                slotMaxTime: '18:00:00',
+                allDaySlot: false,
+                select: function (arg) {
+                    if (arg.view.type === 'timeGridWeek') {
+                        const eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
+                        eventModal.show();
+
+                        document.getElementById('eventForm').reset();
+                        document.getElementById('eventName').value = '';
+                        document.getElementById('eventStartTime').innerText = arg.start.toLocaleString();
+
+                        // Modificar las opciones de la hora de finalización
+                        const endTimeSelect = document.getElementById('eventEndTime');
+                        endTimeSelect.innerHTML = ''; // Limpiar las opciones existentes
+
+                        for (let hour = arg.start.getHours() + 1; hour  <=18; hour++) {  // Incrementar la hora en 1
+                            const hourString = hour.toString().padStart(2, '0');
+                            const option = document.createElement('option');
+                            option.value = `${hourString}:00`;
+                            option.text = `${hourString}:00`;
+                            endTimeSelect.add(option);
+                        }
+
+                        selectedEventRange = {
+                            start: arg.start,
+                            end: arg.end
+                        };
+                    }
+                },
+                eventSources: [
+                    {
+                        // Evento para obtener todos los eventos asociados al IdAuto
+                        url: `/Calendar/GetAllEvents?idAuto=${IdAuto}`,
+                        method: 'GET',
+                        failure: function () {
+                            alert('Error al cargar las reservas');
+                        }
+                    },
+                    {
+                        // Nuevo evento para obtener eventos del usuario para el IdAuto
+                        url: `/Calendar/GetUserEventsForAuto?idAuto=${IdAuto}`,
+                        method: 'GET',
+                        failure: function () {
+                            alert('Error al cargar los eventos del usuario');
+                        }
+                    },
+                    
+                ],
+                selectAllow: function (selectInfo) {
+                    // Obtener la fecha actual
+                    const currentDate = new Date();
+                    // Establecer la fecha mínima permitida como la fecha actual
+                    const minSelectableDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+                    // Verificar si la fecha seleccionada es anterior a la fecha actual
+                    if (selectInfo.start < minSelectableDate) {
+                        // Mostrar un mensaje de error indicando que la selección no es permitida
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'No puedes seleccionar fechas anteriores a la fecha actual.'
+                        });
+                        return false; // No permitir la selección
+                    }
+
+                    // Verificar si hay eventos existentes en el rango seleccionado
+                    const eventsInSelection = calendar.getEvents().some(function (event) {
+                        return (
+                            (event.start < selectInfo.end && event.end > selectInfo.start) ||
+                            (event.end > selectInfo.start && event.start < selectInfo.end)
+                        );
+                    });
+
+                    if (eventsInSelection) {
+                        // Mostrar un mensaje de error indicando que el período seleccionado está ocupado
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'El período seleccionado ya está ocupado. Por favor, elige otro período.'
+                        });
+                        return false; // No permitir la selección
+                    }
+
+                    return true; // Permitir la selección si no se cumplen las condiciones anteriores
+                },
+                eventDidMount: function (arg) {
+                    const eventEl = arg.el;
+                    arg.event.setProp('allDay', false);
+
+                    const eventSourceUrl = arg.event.source.url;
+
+                    if (eventSourceUrl && eventSourceUrl.includes('GetAllEvents')) {
+                        // Si es de GetAllEvents, pintar de rojo
+                        eventEl.style.backgroundColor = '#C55E5E';
+                        eventEl.addEventListener('click', function () {
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'Información',
+                                html: 'Esta reserva está ocupada. <br> Pertenece a: <br>Nombre de usuario: ' + arg.event.extendedProps.userName
+                            });
+                        });
+                    } else {
+                        if (arg.event.extendedProps.estadoId === 1) {
+                            // Estado Pendiente (colorear de verde)
+                            eventEl.style.backgroundColor = 'green';
+                            eventEl.style.color = 'white';
+                            // Agregar un manejador para el clic en el evento
+                            eventEl.addEventListener('click', function () {
+                                Swal.fire({
+                                    icon: 'info',
+                                    title: 'Información',
+                                    text: 'Esta reserva está ocupada.'
+                                });
+                            });
+                        } else if (arg.event.extendedProps.estadoId === 2) {
+                            // Estado Activo (colorear de naranja)
+                            eventEl.style.backgroundColor = 'orange';
+                            eventEl.style.color = 'white';
+                            // Agregar un manejador para el clic en el evento
+                            eventEl.addEventListener('click', function () {
+                                Swal.fire({
+                                    icon: 'info',
+                                    title: 'Información',
+                                    text: 'Esta reserva está pendiente.'
+                                });
+                            });
+                        }
+                    }
+                },
+
+            });
+            calendar.render();
+            const eventNameInput = document.getElementById('eventName');
+            eventNameInput.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault(); // Evitar que el formulario se envíe al presionar Enter
+                    validateAndRegisterEvent(); // Validar y registrar el evento
+                }
+            });
+            const eventEndTimeSelect = document.getElementById('eventEndTime');
+            eventEndTimeSelect.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault(); // Evitar que el formulario se envíe al presionar Enter
+                    validateAndRegisterEvent(); // Validar y registrar el evento
+                }
+            });
+            function validateAndRegisterEvent() {
+                const eventName = document.getElementById('eventName').value;
+                const eventEndTime = document.getElementById('eventEndTime').value;
+
+                // Verificar si ambos campos están completos
+                if (eventName.trim() === '' || eventEndTime.trim() === '') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Por favor, complete todos los campos para registrar el evento.'
+                    });
+                    return;
+                }
+
+                // Si los campos están completos, llamar a la función para registrar el evento
+                registerEvent();
+            }
+            // Agregar manejador para el evento hide.bs.modal
+            const eventModalElement = document.getElementById('eventModal');
+            eventModalElement.addEventListener('hide.bs.modal', function () {
+                // Limpiar mensajes al cerrar el modal
+                document.getElementById('registrationMessage').innerText = '';
+            });
+        });
+
+        function registerEvent() {
+            const IdAuto = getUrlParameter('idAuto');
+            const eventName = document.getElementById('eventName').value;
+            const eventEndTime = document.getElementById('eventEndTime').value;
+
+            if (!eventName) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Por favor, ingrese un título para el evento.'
+                });
+                return;
+            }
+
+            const endHour = parseInt(eventEndTime.split(':')[0], 10);
+            const endMinutes = parseInt(eventEndTime.split(':')[1], 10);
+            const selectedEndTime = new Date(selectedEventRange.start);
+            selectedEndTime.setHours(endHour);
+            selectedEndTime.setMinutes(endMinutes);
+
+
+
+
+            const nuevoEvento = {
+                Title: eventName,
+                Start: moment(selectedEventRange.start).format(),
+                End: moment(selectedEndTime).format(),
+
+            };
+
+            // Realizar la solicitud Ajax
+            fetch(`/Calendar/RegisterEvent?IdAuto=${IdAuto}`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify(nuevoEvento)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: data.message.title,
+                            text: data.message.text,
+                            willClose: (dismissEvent) => {
+                                if (dismissEvent.dismiss === Swal.DismissReason.backdrop) {
+                                    const eventModal = document.getElementById('eventModal');
+                                    eventModal.classList.remove('show'); // Eliminar la clase 'show' que mantiene el modal visible
+                                    document.body.classList.remove('modal-open'); // Eliminar la clase que bloquea el desplazamiento del cuerpo
+                                    const modalBackdrop = document.querySelector('.modal-backdrop');
+                                    if (modalBackdrop) {
+                                        modalBackdrop.parentNode.removeChild(modalBackdrop);
+                                    }
+
+                                    document.getElementById('registrationMessage').innerText = 'Registro exitoso';
+                                    calendar.refetchEvents();
+
+
+                                    location.reload(true);
+                                }
+                            }
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                const eventId = data.message.eventId;
+
+                                if (eventId) {
+                                    const redirectTo = `/Calendar/Pay?eventId=${eventId}`;
+                                    window.location.replace(redirectTo);
+                                } else {
+                                    console.error('El eventId no está definido en la respuesta JSON.');
+                                }
+                            }
+                        });
+
+
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Error al registrar el evento: ' + data.message
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Error al registrar el evento.'
+                    });
+                });
+        }
+
+
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+    </script>
+</body>
+</html>

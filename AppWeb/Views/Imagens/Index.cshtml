@@ -1,0 +1,102 @@
+﻿@model IEnumerable<AppWeb.Models.Imagen>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <title>Imágenes</title>
+    <style>
+        body, html {
+            overflow: auto;
+            font-family: 'Montserrat', sans-serif;
+            height: 100%;
+            margin: 0;
+            padding-bottom: 50px; /* Ajusta este valor según tus necesidades para proporcionar espacio para la barra de desplazamiento */
+        }
+
+        .container {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .btn {
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 10px;
+        }
+        table {
+            margin-top: 20px;
+            border-collapse: collapse; /* Colapsar bordes para evitar doble línea */
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #dddddd; /* Borde de 1 píxel sólido en gris */
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2; /* Color de fondo gris claro para las celdas de encabezado */
+        }
+
+        .thumbnail {
+            max-width: 100px;
+            max-height: 100px;
+        }
+
+        .btn {
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <p>
+            <!-- Botón de regreso a IndexMaster -->
+            <a class="btn btn-secondary" asp-area="" asp-controller="Home" asp-action="IndexMaster" style="background-color: #000000; border-color: #000000;">Volver al Inicio</a>
+        <a class="btn btn-primary" asp-action="Create" style="background-color: #FF6B00; border-color: #FF6B00;">Crear Nuevo</a>
+        </p>
+        <table class="table table-bordered table-striped">
+            <!-- Encabezados de la tabla -->
+            <thead>
+                <tr>
+                    <th>Imagen</th>
+                    <th>Tipo MIME</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <!-- Cuerpo de la tabla -->
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <img src="data:@item.ImagenMimeType;base64,@Convert.ToBase64String(item.ImagenData)" alt="Imagen" class="thumbnail" />
+                        </td>
+                        <td>
+                            <span>@item.ImagenMimeType</span>
+                        </td>
+                        <td>
+                            <a class="btn btn-info" asp-action="Edit" style="background-color: #FF6B00; border-color: #FF6B00;" asp-route-id="@item.IdImagen">Editar</a> |
+                            <a class="btn btn-secondary" asp-action="Details" style="background-color: #000000; border-color: #000000;" asp-route-id="@item.IdImagen">Detalles</a> |
+                            <a class="btn btn-danger" asp-action="Delete" style="background-color: red; border-color: red;" asp-route-id="@item.IdImagen">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,390 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+
+
+
+/**
+    INDEX PRINCIPAL
+*/
+
+.fondo-negro {
+    position: relative; /* Asegura que los elementos secundarios se posicionen con respecto a este contenedor */
+    overflow: hidden;
+    background-color: black;
+    width: 100%;
+    height: 300px; /* Ajusta la altura según tus necesidades */
+    position: absolute;
+    top: 65px; /* Ajusta la posición según la altura de tu barra de navegación */
+    left: 0;
+    z-index: 9999; /* Asegura que esté en la parte superior de otros elementos */
+    display: flex;
+    flex-direction: row; /* Cambiado a fila para que los elementos se ordenen horizontalmente */
+    align-items: center;
+    padding-left: 20px; /* Ajusta el espacio a la izquierda según tus necesidades */
+}
+
+.contenido-fondo {
+    color: white;
+    text-align: left;
+    font-size: 16px; /* Ajusta el tamaño del texto según tus necesidades */
+    margin-right: 20px; /* Espacio entre los textos y la imagen */
+}
+
+.imagen-fondo {
+    width: 35%;
+    height: auto;
+    margin-left: auto;
+    position: relative;
+    z-index: 10000;
+    display: block; /* Añade esta propiedad para solucionar problemas de visualización */
+}
+
+.img-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 10px; /* Espaciado adicional para las imágenes */
+}
+
+
+
+
+.mustang-container {
+    background-color: black;
+    width: 200%; /* Ancho del 100% para ocupar todo el ancho del contenedor padre */
+    height: 400px; /* Ajusta la altura según tus preferencias */
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Alineación de contenido */
+    padding: 10px;
+    margin-bottom: 20px; /* Ajusta el margen inferior según tus necesidades */
+}
+
+.mustang-text {
+    color: white;
+    font-size: 1.5em;
+    margin-right: 10px;
+}
+
+.mask-group {
+    width: 70%; /* Ajusta el tamaño de la imagen según tus preferencias */
+    max-width: 300px; /* Tamaño máximo para evitar que la imagen sea demasiado grande */
+    margin-left: 20px; /* Ajusta el margen izquierdo según tus necesidades */
+    top: 50px; /* Ajusta este valor según sea necesario para mover la imagen hacia arriba o abajo */
+}
+
+.overlap-5 {
+    height: 100%;
+    flex-grow: 1; /* Que ocupe todo el espacio disponible */
+    margin-right: 20px; /* Ajusta el margen derecho según tus necesidades */
+}
+
+.p {
+    margin-top: 10px; /* Agregado para dar espacio entre el texto y la imagen */
+}
+
+/* Estilos adicionales para el texto centrado y los botones */
+.centrado {
+    text-align: center;
+    font-size: 1.7em;
+    margin: 345px;
+}
+
+.ver-mas-btn,
+.ocultar-btn {
+    display: block;
+    margin: 10px auto; /* Ajusta el valor según sea necesario para moverlos más abajo */
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border: none;
+    cursor: pointer;
+    margin-bottom: -280px; /* Añadido margen inferior para espacio entre el botón "Ver Más" y el contenido de abajo */
+}
+
+.otro-boton {
+    display: inline-block;
+    background-color: white;
+    color: black;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border: none;
+    cursor: pointer;
+    margin-left: 100px; /* Ajusta este valor para mover el botón más a la derecha */
+    border-radius: 5px;
+}
+
+
+
+.ocultar-btn {
+    display: none;
+}
+
+.mas-modelos {
+    display: none;
+    margin-top: -250px;
+}
+
+.img {
+    width: 49%;
+    margin-bottom: 10px;
+    border: 2px solid black; /* Añade un borde negro a las imágenes */
+}
+
+    .img.hidden {
+        display: none;
+    }
+
+.img-container.mas-modelos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 6px;
+    background-color: #f0f0f0;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    border: 2px solid black; /* Añade un borde negro al contenedor de las imágenes */
+}
+
+
+.img.mas-modelos {
+    width: 48%;
+    margin-bottom: 20px;
+}
+
+    .img.mas-modelos img {
+        width: 100%; /* Hace que la imagen ocupe todo el ancho del contenedor */
+        height: auto; /* Se ajustará automáticamente según el ancho */
+    }
+
+    .img.mas-modelos p {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+
+h1 {
+    font-size: 50px; /* Ajusta el tamaño del texto "MUSTANG 1998" según tus necesidades */
+    text-align: center; /* Centra horizontalmente el texto */
+}
+
+.img-box {
+    width: 100%;
+    margin-bottom: 20px;
+    border: 2px solid black;
+    box-sizing: border-box; /* Incluye el grosor del borde en el tamaño total del cuadro */
+    padding: 15px; /* Aumenta el espaciado interno del cuadro */
+    text-align: center; /* Centra el contenido dentro del cuadro */
+}
+
+    .img-box img {
+        width: 100%; /* Cambia este valor para ajustar el tamaño de las imágenes */
+        height: auto;
+        display: block; /* Elimina el espacio debajo de las imágenes */
+        margin: 0 auto 10px; /* Centra las imágenes y agrega un pequeño margen inferior */
+    }
+
+.carro-btn {
+    background-color: black;
+    color: orange; /* Cambia el color del texto a naranja */
+    padding: 10px 15px;
+    font-size: 1.2em;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px; /* Añade bordes redondos al botón */
+}
+
+    .carro-btn:hover {
+        background-color: #333; /* Cambia el color al pasar el mouse sobre el botón */
+    }
+
+/* Ajustes para el contenedor de las imágenes ocultas */
+.img-container.mas-modelos {
+    margin-top: 20px; /* Aumenta el espacio superior */
+    padding: 20px; /* Aumenta el espaciado interno */
+    background-color: #f0f0f0;
+    border: 2px solid black; /* Añade un borde negro al contenedor de las imágenes */
+}
+
+#titulo {
+    color: rgba(0, 0, 0, 1);
+    width: 659px;
+    height: 99px;
+    position: absolute;
+    left: 30px;
+    top: 0px;
+    font-family: Montserrat;
+    text-align: left;
+    font-size: 50px;
+    letter-spacing: 0;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+/* Estilos para el calendario */
+/* Estilos para el calendario */
+#calendar {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    transition: max-width 0.3s ease-in-out;
+}
+
+.fc-col-header-cell-cushion,
+.fc-day-header,
+.fc-time-header-cell {
+    background-color: #3498db;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    padding: 20px;
+}
+
+.fc-content-col {
+    border: 2px solid #ddd;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.fc-event {
+    background-color: #e74c3c;
+    border: 2px solid #c0392b;
+    color: #fff;
+    padding: 10px; /* Reducido el padding */
+    cursor: pointer;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    position: relative;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.fc-event-title {
+    font-size: 14px; /* Reducido el tamaño de la fuente */
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.fc-event-time {
+    font-size: 12px; /* Reducido el tamaño de la fuente */
+}
+
+.fc-event:hover {
+    background-color: #c0392b;
+}
+
+.fc-today {
+    background-color: #3498db;
+    color: #fff;
+    font-weight: bold;
+}
+
+#eventModal .modal-content {
+    background-color: #ecf0f1;
+    border-radius: 20px;
+    padding: 30px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+#eventModal .modal-title {
+    color: #3498db;
+}
+
+#eventForm .form-label {
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+#eventForm .form-control {
+    border: 2px solid #3498db;
+    border-radius: 8px;
+}
+
+#eventForm .btn-primary {
+    background-color: #3498db;
+    border: 2px solid #3498db;
+    border-radius: 8px;
+    font-weight: bold;
+    padding: 10px 20px; /* Reducido el padding */
+}
+
+    #eventForm .btn-primary:hover {
+        background-color: #2980b9;
+        border: 2px solid #2980b9;
+    }
+
+#registrationMessage {
+    color: #2ecc71;
+    font-weight: bold;
+}
+
+/* Estilo base para el calendario */
+.calendarcontainer {
+    height: 700px;
+    width: 100%;
+    background-color: #6c7e9f;
+    overflow: hidden;
+    transition: height 0.3s ease-in-out;
+}
+
+.fc-dayGrid-day.fc-dayGrid-day-top {
+    display: none;
+}
+
+.vehiculo {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 50px; /* Reducido el tamaño de la fuente */
+    transition: font-size 0.3s ease-in-out;
+}
+
+.flecha-izquierda,
+.flecha-derecha {
+    margin: 0 15px;
+    font-size: 18px; /* Reducido el tamaño de la fuente */
+    cursor: pointer;
+}
+
+/* Media query para pantallas más pequeñas (como dispositivos móviles) */
+@media only screen and (max-width: 600px) {
+    .calendarcontainer {
+        height: 100vh;
+    }
+}
+
+
+
+body, html {
+    overflow: auto;
+    font-family: 'Montserrat', sans-serif;
+    padding-bottom: 50px; /* Ajusta este valor según tus necesidades para proporcionar espacio para la barra de desplazamiento */
+}
+

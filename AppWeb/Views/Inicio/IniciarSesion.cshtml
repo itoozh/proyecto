@@ -1,0 +1,336 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Iniciar Sesión - Palms Cars</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden; /* Evita que el body muestre barras de desplazamiento */
+        }
+
+        .container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background: black;
+        }
+
+        .background-overlay {
+            width: 100vw;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            position: absolute;
+            background: black;
+            box-shadow: 0 0 0 100vmax black;
+        }
+
+        .brand-title {
+            color: white;
+            font-size: 34px;
+            font-weight: 700;
+            word-wrap: break-word;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+        }
+
+        .welcome-message {
+            color: white;
+            font-size: 40px;
+            font-family: Montserrat;
+            font-weight: 800;
+            word-wrap: break-word;
+            position: absolute;
+            top: 73px;
+            left: 919px;
+        }
+
+        .login-message {
+            color: white;
+            font-size: 25px;
+            font-family: Montserrat;
+            font-weight: 400;
+            word-wrap: break-word;
+            position: absolute;
+            top: 135px;
+            left: 979px;
+        }
+
+        .card-container {
+            width: 523px;
+            position: absolute;
+            top: 51%;
+            left: 80%;
+            transform: translate(-50%, -50%);
+        }
+
+        .card {
+            background: black;
+            border-radius: 10px;
+            border: 1px solid black;
+        }
+
+        .card-header {
+            background: black;
+            color: white;
+            font-size: 40px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            word-wrap: break-word;
+            text-align: center;
+        }
+
+        .form-label {
+            color: white;
+            font-size: 24px;
+            font-weight: 530;
+        }
+
+        .form-control {
+            margin-bottom: 10px;
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .btn-primary {
+            width: 50%;
+            font-size: 30px;
+            background: #EFA068;
+            border-radius: 20px;
+            border: 1px #EFA068 solid;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 10px;
+            display: inline-flex;
+            padding: 8px;
+            color: black;
+            cursor: pointer;
+            position: absolute;
+            top: 250px; /* Ajusta este valor según tu diseño */
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+
+            .btn-primary:hover {
+                background: #D0983A;
+            }
+
+        .alert {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 18px;
+            border-radius: 5px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 125px;
+            font-size: 20px;
+            color: white;
+        }
+
+        .btn-register {
+            position: absolute;
+            top: 400px; /* Ajusta este valor según tu diseño */
+            left: 50%; /* Ajusta este valor según tu diseño */
+            transform: translateX(-50%); /* Centra el botón horizontalmente */
+            width: 50%;
+            font-size: 30px;
+            background: #EFA068;
+            border-radius: 20px;
+            border: 1px #EFA068 solid;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 10px;
+            display: inline-flex;
+            padding: 8px;
+            color: black;
+            cursor: pointer;
+        }
+
+
+            .btn-register:hover {
+                background: #D0983A;
+            }
+
+        .brand-title-duplicate {
+            color: #FF6B00;
+            font-size: 34px;
+            font-weight: 700;
+            word-wrap: break-word;
+            position: absolute;
+            top: 30px;
+            left: 10px;
+        }
+
+
+
+        .icon-input-group {
+            position: relative;
+            width: 100%;
+        }
+
+            .icon-input-group img {
+                position: absolute;
+                left: 8px;
+                top: 50%;
+                transform: translateY(-50%);
+                z-index: 2;
+            }
+
+            .icon-input-group input {
+                padding-left: 40px;
+            }
+
+
+        .icon-input-group-correo {
+            position: relative;
+            width: 100%;
+        }
+
+            .icon-input-group-correo img {
+                position: absolute;
+                left: 3px;
+                top: 50%;
+                transform: translateY(-50%);
+                z-index: 2;
+            }
+
+            .icon-input-group-correo input {
+                padding-left: 40px;
+            }
+
+        .icon-input-group-password {
+            position: absolute;
+            left: 440px; /* Ajusta este valor según tu diseño */
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="background-overlay"></div>
+        <div style="width: 100%; height: 100%; position: relative">
+
+            <img style="width: 640px; height: 480px; left: 10px; top: 100px; position: absolute" src="~/image/AutoIndex.png" />
+        </div>
+        <div class="card-container">
+            <div class="card">
+                <div class="card-body">
+                    <form asp-controller="Inicio" asp-action="IniciarSesion" method="post">
+
+                        <label class="form-label" for="correo">Correo Electrónico</label>
+                        <div class="icon-input-group-correo">
+                            <img src="~/image/iconoemail3.png" alt="Correo" width="40" height="auto" class="d-inline-block align-top">
+                            <input class="form-control" type="text" placeholder="Correo Electrónico" required name="correo" />
+                        </div>
+
+                        <label class="form-label" for="contrasena">Contraseña</label>
+                        <div class="icon-input-group">
+                            <img src="~/image/candadopassword.png" alt="Contraseña" width="25" height="25" class="d-inline-block align-top">
+                            <input class="form-control" type="password" placeholder="Contraseña" required name="contrasena" id="contrasenaInput">
+
+                            <div class="icon-input-group icon-input-group-password" onclick="togglePasswordVisibility()">
+                                <img src="~/image/iconoverclave2.png" alt="Ver Clave" width="35" height="auto" class="password-icon" id="verClaveIcon">
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary" type="submit">INICIAR SESIÓN</button>
+                        </div>
+
+                        <div class="register-link">
+                            ¿No tienes una cuenta? Regístrate
+                            <button class="btn btn-register" onclick="window.location.href='@Url.Action("Registrarse","Inicio")'" type="button">REGISTRARSE</button>
+                        </div>
+
+                        @if (ViewData["Mensaje"] != null)
+                        {
+                            <script>
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: '@ViewData["Mensaje"]',
+                                    showCancelButton: false,
+                                    confirmButtonColor: '#3085d6',
+                                    confirmButtonText: 'OK'
+                                });
+                            </script>
+                        }
+
+                        @if (ViewData["MensajeExitoso"] != null)
+                        {
+                            <script>
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Éxito',
+                                    html: '@Html.Raw(ViewData["MensajeExitoso"])',
+                                    showCancelButton: false,
+                                    confirmButtonColor: '#3085d6',
+                                    confirmButtonText: 'OK'
+                                });
+                            </script>
+                        }
+
+
+                    </form>
+
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="welcome-message">BIENVENIDO</div>
+
+        <div class="login-message">Inicia Sesión</div>
+
+        <div class="brand-title">Palms Cars</div>
+
+        <div class="brand-title-duplicate">Palms Cars</div>
+
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function togglePasswordVisibility() {
+            var contrasenaInput = document.getElementById('contrasenaInput');
+            var verClaveIcon = document.getElementById('verClaveIcon');
+
+            if (contrasenaInput.type === 'password') {
+                contrasenaInput.type = 'text';
+                verClaveIcon.src = '/image/iconoocultarclave.png'; // Ruta relativa o absoluta a la imagen de ojo cerrado
+            } else {
+                contrasenaInput.type = 'password';
+                verClaveIcon.src = '/image/iconoverclave2.png'; // Ruta relativa o absoluta a la imagen de ojo abierto
+            }
+
+        }
+    </script>
+</body>
+
+</html>

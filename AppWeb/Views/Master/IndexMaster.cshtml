@@ -1,0 +1,163 @@
+﻿@{
+    ViewData["Title"] = "Index Master";
+    var userIdClaim = User.FindFirst("IdRolClaim")?.Value;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewData["Title"]</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: antiquewhite; /* Fondo negro */
+            color: #FFFFFF; /* Letras blancas */
+            font-family: 'Montserrat', sans-serif; /* Fuente Montserrat */
+        }
+
+        .card {
+            margin-bottom: 20px;
+            background-color: #FFFFFF; /* Cartas de color blanco por defecto */
+            color: #000000; /* Letras negras por defecto */
+            transition: background-color 0.3s ease; /* Transición suave */
+        }
+
+            .card:hover {
+                background-color: #FF6B00; /* Color de las cartas al pasar el mouse */
+            }
+
+        .card-title {
+            font-size: 22px; /* Tamaño de fuente un poco más pequeño para el mensaje de bienvenida */
+            font-weight: bold; /* Negrita */
+            font-family: 'Montserrat', sans-serif; /* Fuente Montserrat */
+        }
+
+        .card-body {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #FF6B00; /* Letras FF6B00 por defecto en "Ir" */
+            font-size: 18px; /* Tamaño de letra más grande */
+            text-decoration: none;
+            transition: color 0.3s ease; /* Transición suave */
+        }
+
+        .card:hover .nav-link {
+            color: #000000; /* Color de "Ir" al pasar el mouse */
+        }
+
+        .welcome-message {
+            font-family: 'Montserrat', sans-serif; /* Fuente Montserrat para el mensaje de bienvenida */
+            font-weight: bold; /* Negrita */
+            margin-bottom: 10px; /* Margen inferior reducido */
+            color: #000000;
+        }
+
+        .large-text {
+            font-size: 28px; /* Tamaño de fuente más grande para el mensaje "¿Qué deseas hacer?" */
+            font-weight: bold; /* Negrita */
+            margin-top: 20px; /* Margen superior agregado */
+            color: #FF6B00;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mt-4">
+        <div class="welcome-message">
+            <h3 class="display-4">Bienvenido, Administrador @ViewData["nombreUsuario"]</h3>
+        </div>
+
+        <p class="large-text">¿Qué deseas hacer?</p>
+
+        <hr class="mt-4">
+
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            <!-- Fila 1 -->
+            <div class="col">
+                <a href="@Url.Action("Index", "Rols")" class="card text-dark">
+                    <div class="card-body">
+                        <h5 class="card-title">Crear Roles</h5>
+                        <p class="card-text">Ir &rarr;</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="@Url.Action("Index", "Usuarios")" class="card text-dark">
+                    <div class="card-body">
+                        <h5 class="card-title">Crear Usuarios</h5>
+                        <p class="card-text">Ir &rarr;</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Fila 2 -->
+            <div class="col">
+                <a href="@Url.Action("Index", "Imagens")" class="card text-dark">
+                    <div class="card-body">
+                        <h5 class="card-title">Imagen</h5>
+                        <p class="card-text">Ir &rarr;</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="@Url.Action("Index", "Auto")" class="card text-dark">
+                    <div class="card-body">
+                        <h5 class="card-title">Vehiculo</h5>
+                        <p class="card-text">Ir &rarr;</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="@Url.Action("Index", "Tarifa")" class="card text-dark">
+                    <div class="card-body">
+                        <h5 class="card-title">Tarifa</h5>
+                        <p class="card-text">Ir &rarr;</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Fila 3 -->
+            <div class="col">
+                <a href="@Url.Action("Index", "Estadoes")" class="card text-dark">
+                    <div class="card-body">
+                        <h5 class="card-title">Estados</h5>
+                        <p class="card-text">Ir &rarr;</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Fila 4 (Tarjeta grande) -->
+            <div class="col">
+                <a href="@Url.Action("Index", "Events")" class="card text-dark w-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Reserva</h5>
+                        <p class="card-text">Ir &rarr;</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <hr class="mt-4">
+    <p></p>
+
+
+
+    <!-- Bootstrap JS y dependencias (jQuery) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+﻿@model AppWeb.Models.Usuario
+
+@{
+    ViewData["Title"] = "Editar Usuario";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            overflow: auto;
+            font-family: 'Montserrat', sans-serif;
+            height: 100%;
+            margin: 0;
+            padding-bottom: 50px;
+            background-color: #f8f9fa; /* Fondo gris claro */
+        }
+
+        h4 {
+            color: #ff8c00; /* Título en naranja */
+        }
+
+        .alert {
+            position: fixed;
+            top: 80px;
+            right: 100px;
+            z-index: 9999;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 19px;
+            font-family: 'Montserrat', sans-serif;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: lightcoral; /* Color de fondo verde claro */
+            color: black; /* Color de texto verde oscuro */
+            width: 320px;
+        }
+
+            .alert button {
+                color: #31708f; /* Color del botón de cerrar */
+            }
+        .container {
+            margin-top: 10px;
+        }
+
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #ffffff; /* Fondo blanco */
+            border: 1px solid #333; /* Borde negro */
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-control {
+            width: 100%; /* Ajustar el ancho al 100% */
+        }
+
+        .btn-primary {
+            background-color: #ff8c00; /* Botón de color naranja */
+            border-color: #ff8c00; /* Color del borde naranja */
+        }
+
+            .btn-primary:hover {
+                background-color: #d17f00; /* Color naranja oscuro al pasar el ratón */
+                border-color: #d17f00;
+            }
+
+        .btn-secondary {
+            background-color: #333; /* Botón de color negro */
+            border-color: #333; /* Color del borde negro */
+            color: #fff; /* Letras blancas */
+        }
+
+            .btn-secondary:hover {
+                background-color: #000; /* Color negro oscuro al pasar el ratón */
+                border-color: #000;
+            }
+
+        .btn-back {
+            position: absolute;
+            top: 547px;
+            right: 60px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body class="text-center">
+
+    <div class="container">
+        <div class="form-container">
+            <h4>Editar Usuario</h4>
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <input type="hidden" asp-for="Id" />
+
+                <div class="form-group">
+                    <label asp-for="NombreUsuario" class="control-label">Nombres Completos</label>
+                    <input asp-for="NombreUsuario" class="form-control" required pattern="[A-Za-z\s]+" oninput="validarSoloLetras(this)" />
+                    <span asp-validation-for="NombreUsuario" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Celular" class="control-label">Número Celular</label>
+                    <input asp-for="Celular" class="form-control" required pattern="[0-9]+" oninput="validarCedula(this)" />
+                    <span asp-validation-for="Celular" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Correo" class="control-label">Correo Electrónico</label>
+                    <input asp-for="Correo" class="form-control" type="email" required />
+                    <span asp-validation-for="Correo" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Contrasena" class="control-label">Contraseña</label>
+                    <input asp-for="Contrasena" class="form-control" type="password" required />
+                    <span asp-validation-for="Contrasena" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Cedula" class="control-label">Cédula de Identidad</label>
+                    <input asp-for="Cedula" class="form-control" required pattern="[0-9]+" oninput="validarCedula(this)" />
+                    <span asp-validation-for="Cedula" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="IdRol" class="control-label">Rol</label>
+                    <select asp-for="IdRol" class="form-control" asp-items="ViewBag.IdRol"></select>
+                    <span asp-validation-for="IdRol" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Guardar" class="btn btn-primary" />
+                </div>
+                @if (ViewData["Mensaje"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                @ViewData["Mensaje"]
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="margin-right: 5px;"></button>
+                        </div>
+                    </div>
+                }
+            </form>
+            <a class="btn btn-secondary btn-back" asp-action="Index">Volver</a>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function validarCedula(input) {
+            // Limitar la longitud de la cédula a 10 dígitos
+            if (input.value.length > 10) {
+                input.value = input.value.slice(0, 10);
+            }
+            // Eliminar caracteres no numéricos
+            input.value = input.value.replace(/[^0-9]/g, '');
+        }
+
+        function validarSoloNumeros(input) {
+            input.value = input.value.replace(/[^0-9]/g, ''); // Elimina caracteres no numéricos
+        }
+
+        function validarSoloLetras(input) {
+            input.value = input.value.replace(/[^A-Za-z\s]/g, ''); // Elimina caracteres no alfabéticos ni espacios
+        }
+    </script>
+</body>
+</html>

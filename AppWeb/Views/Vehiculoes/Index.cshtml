@@ -1,0 +1,72 @@
+﻿@model IEnumerable<AppWeb.Models.Vehiculo>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+
+    <style>
+        /* Agrega estilos CSS para las tarjetas */
+        body {
+            margin-bottom: 110px;
+            background-color: #fff; /* Color de fondo por defecto */
+            margin: 0; /* Elimina el margen predeterminado del body */
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            background-color: #fff; /* Color de fondo por defecto */
+            padding: 10px; /* Agrega un poco de espacio entre el borde y las tarjetas */
+        }
+
+        .card {
+            width: calc(50% - 20px); /* 2 columnas con espacio entre ellas */
+            margin: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff; /* Color de fondo por defecto */
+        }
+
+
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Lista de Nombres de Carros con Imágenes</h2>
+
+    <div class="card-container">
+        @foreach (var item in Model)
+        {
+            <div class="card">
+                @if (item.Imagen != null && item.Imagen.ImagenData != null)
+                {
+                    <img src="data:@item.Imagen.ImagenMimeType;base64,@Convert.ToBase64String(item.Imagen.ImagenData)" alt="Imagen" />
+                }
+                else
+                {
+                    <span>No hay imagen disponible</span>
+                }
+
+                <div>
+                    <a asp-action="Details" asp-route-id="@item.IdAuto">@item.Nombre</a>
+                </div>
+            </div>
+        }
+    </div>
+</body>
+</html>

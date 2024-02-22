@@ -1,0 +1,5 @@
+﻿@model AppWeb.Models.Vehiculo
+
+<div class="image-container">
+    <img src="data:@Model.Imagen?.ImagenMimeType;base64,@Convert.ToBase64String(Model.Imagen?.ImagenData)" alt="Imagen de vehículo" />
+</div>

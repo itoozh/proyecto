@@ -1,0 +1,184 @@
+﻿@{
+    var userIdClaim = User.FindFirst("IdRolClaim")?.Value;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - AppWeb</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/AppWeb.styles.css" asp-append-version="true" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" integrity="sha384-ZeM5v5Uf5Fii3e2FgU7t3xTFdVIt9wC/4P2AT4wSjNlMwd5F2q0DbF67a5N4lRz" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-d8m/gg0IH0N5L4a8LO1Dk26qD+Bt5NGGLhWr2AAQtX7vcMPmF9MH9s0fyRT4CITL" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        
+
+        footer {
+            background-color: #000000;
+        }
+
+
+        header {
+            background-color: #FF6B00; /* Fondo de la navbar FF6B00 (important para sobrescribir el estilo de Bootstrap) */
+        }
+
+        .navbar {
+            background-color: #FF6B00; /* Color de la barra de navegación */
+        }
+
+        .navbar-brand,
+        .nav-link {
+            color: #FFFFFF; /* Letras blancas */
+            font-weight: bold; /* Negrita */
+        }
+
+        .white-text {
+            color: white;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            z-index: 10000; /* Ajusta según sea necesario */
+            /* ... (otros estilos) */
+        }
+
+
+    </style>
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-orange border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="margin-left: 10px; margin-top: -15px; font-family: 'Montserrat', sans-serif;">
+                    <img src="~/image/palmas.png" alt="Logo" width="30" height="30" class="d-inline-block align-top" style="margin-right: 10px;">
+                    Palms Cars
+                </a>
+
+                <a class="navbar-brand white-text" asp-area="" asp-controller="Home" asp-action="Index" style="margin-left: -165px; margin-top: 10px; font-family: 'Montserrat', sans-serif;">
+                    <img src="~/image/palmas2.png" alt="Otra Logo" width="30" height="30" class="d-inline-block align-top" style="margin-right: 10px;">
+                    <span class="white-text">Palms Cars</span>
+                </a>
+
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+                    <ul class="navbar-nav">
+                        <li class="nav-item" style="margin-right: 85px;">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: bold;">Inicio</a>
+                        </li>
+                        @if (!string.IsNullOrEmpty(userIdClaim))
+                        {
+                            <li class="nav-item" style="margin-right: 80px;">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Vehiculoes" asp-action="Index" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: bold;">Lista de Autos</a>
+                            </li>
+                        }
+                        <li class="nav-item" style="margin-right: 70px;">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: bold;">Acerca de Nosotros</a>
+                        </li>
+                        @if (!string.IsNullOrEmpty(userIdClaim))
+                        {
+                            if (userIdClaim == "1")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="IndexMaster" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: bold; margin-right: 60px;">Administrador</a>
+                                </li>
+                            }
+                            else if (userIdClaim == "3")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="IndexGerencia" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: bold; margin-right: 60px;">Gerencia</a>
+                                </li>
+                            }
+                        }
+                    </ul>
+
+                </div>
+                <ul class="navbar-nav" style="margin-right: 80px;">
+                    @if (!string.IsNullOrEmpty(ViewData["nombreUsuario"] as string))
+                    {
+                        <li class="nav-item dropdown">
+                            <button class="btn btn-dark" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span style="color: white; font-weight: bold;">@ViewData["nombreUsuario"]</span>
+                                <img src="~/image/person-circle-outline.png" alt="Usuario" width="25" height="25" class="d-inline-block align-top" style="margin-right: 10px;">
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="font-family: 'Montserrat', sans-serif;">
+                                <a class="dropdown-item" asp-area="" asp-controller="Perfil" asp-action="MostrarPerfil" style="color: #000; font-weight: bold;">Ver Usuario</a>
+                                <a class="dropdown-item" asp-controller="Perfil" asp-action="EditarPerfil" style="color: #000; font-weight: bold;">Editar Perfil</a>
+                                <a class="dropdown-item" asp-controller="MisReservas" asp-action="Index" style="color: #000; font-weight: bold;">Ver Reservas</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-danger" asp-area="" asp-controller="Home" asp-action="CerrarSesion" style="color: #ff0000; font-weight: bold;">Cerrar Sesión</a>
+                            </div>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="btn btn-dark" asp-area="" asp-controller="Inicio" asp-action="IniciarSesion" style="font-family: 'Montserrat', sans-serif; color: white; font-weight: bold; padding: .375rem .75rem;">
+                                Iniciar Sesión
+                                <img src="~/image/person-circle-outline.png" alt="Usuario" width="25" height="25" class="d-inline-block align-top" style="margin-left: 10px;">
+                            </a>
+                        </li>
+
+
+                    }
+                </ul>
+
+
+
+                </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 d-flex align-items-center justify-content-end pe-3" style="margin-right: -200px;">
+                    <!-- Primera imagen con texto -->
+                    <img src="~/image/logo-instagram.png" alt="Imagen 1" class="img-fluid me-1" style="max-width: 20px;">
+                    <div>
+                        <p class="m-0 text-white" style="font-size: 10px; font-family: 'Montserrat', sans-serif;">PALMAS_SA</p>
+                    </div>
+                </div>
+                <div class="col-md-4 d-flex align-items-center justify-content-end pe-2" style="margin-right:-1100px;">
+                    <!-- Segunda imagen con texto -->
+                    <img src="~/image/logo-whatsapp.png" alt="Imagen 2" class="img-fluid me-1" style="max-width: 20px;">
+                    <div>
+                        <p class="m-0 text-white" style="font-size: 10px; font-family: 'Montserrat', sans-serif;">+593 0986382765</p>
+                    </div>
+                </div>
+                <div class="col-md-4 d-flex align-items-center justify-content-end pe-1" style="margin-left: 870px;">
+                    <!-- Tercera imagen con texto -->
+                    <img src="~/image/logo-facebook.png" alt="Imagen 3" class="img-fluid me-1" style="max-width: 20px;">
+                    <div>
+                        <p class="m-0 text-white" style="font-size: 10px; font-family: 'Montserrat', sans-serif;">PALMAS_SA</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

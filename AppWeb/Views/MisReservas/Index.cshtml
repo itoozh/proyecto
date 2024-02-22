@@ -1,0 +1,381 @@
+﻿@model List<AppWeb.Models.Event>
+@{
+	ViewData["Title"] = "Mis Reservas";
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"]</title>
+	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.js'></script>
+	<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css' />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<link rel="stylesheet" href="~/css/site.css">
+</head>
+<body>
+
+	<h2>Mis Reservas</h2>
+	@if (Model.Count > 0)
+	{
+		var reservasPorEstado = Model.GroupBy(e => e.Estado?.NombreEstado);
+
+		foreach (var grupo in reservasPorEstado)
+		{
+			<h3>@grupo.Key</h3> <!-- Muestra el nombre del estado como título de la sección -->
+
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Evento</th>
+						<th>Inicio</th>
+						<th>Fin</th>
+						<th>Pago</th>
+						<th>Vehículo</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var reserva in grupo)
+					{
+						<tr>
+							<td>@reserva.Title</td>
+							<td>@reserva.Start</td>
+							<td>@reserva.End</td>
+							<td>@reserva.Pago?.Monto</td>
+							<td>@reserva.Vehiculo?.Nombre</td>
+							<td>
+								@if (reserva.Estado?.NombreEstado == "Pendiente")
+								{
+									<!-- Agrega un identificador único al botón para manejar la solicitud AJAX -->
+									<button type="button" class="btn btn-success pagar-btn" data-event-id="@reserva.EventId">Pagar</button>
+									<button type="button" class="btn btn-danger eliminar-btn" data-event-id="@reserva.EventId">Eliminar</button>
+								}
+								@if (reserva.Estado?.NombreEstado == "Activo")
+								{
+									<!-- Botón Generar Factura -->
+									<button type="button" class="btn btn-primary generar-factura-btn" data-event-id="@reserva.EventId">Generar Factura</button>
+								}
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		}
+	}
+	else
+	{
+		<p>No tienes reservas actualmente.</p>
+	}
+	<div class="card-container">
+		@foreach (var vehiculoGroup in Model.GroupBy(e => e.VehiculoId))
+		{
+			var primerEvento = vehiculoGroup.First();
+			<div class="vehiculo">
+				<button class="flecha-izquierda cambiarVehiculoBtn" onclick="mostrarVehiculoAnterior()">❮</button>
+
+				<a asp-action="Details" asp-route-id="@primerEvento.VehiculoId" data-vehiculo-id="@primerEvento.VehiculoId">@primerEvento.Vehiculo.Nombre</a>
+				<div id="contenedorImagen">
+					<img id="imagenVehiculo" src="#" alt="Imagen del vehículo">
+				</div>
+
+				<button class="flecha-derecha cambiarVehiculoBtn" onclick="mostrarVehiculoSiguiente()">❯</button>
+			</div>
+		}
+	</div>
+
+	<!-- ///////////////////////////////////////////////////  -->
+	<div id='calendar' class="calendarcontainer"></div>
+	<!-- ///////////////////////////////////////////////////  -->
+	<script>
+		/*
+						   VAR
+		*/
+
+		var vehiculos = document.querySelectorAll('.vehiculo');
+		var indiceActual = 0;
+		let calendar;
+		let selectedEventRange;
+		let vehiculoId = 0;
+		function cargarEventosEnCalendario() {
+
+
+
+			calendar.removeAllEvents(); // Limpiar eventos actuales
+
+			calendar.addEventSource({
+				url: `/Calendar/GetUserEventsForAuto?idAuto=${vehiculoId}`,
+				method: 'GET'
+
+			});
+
+			//aqui se crea una funcion para traer la imagen por id 
+			// var imagenes=imagenes del carro con ese id 
+			//verificar si imagenes tiene imagenes y si tiene obtener la primera y setear en el bloque de la imagen del html en un div 
+			if (vehiculoId != null) {
+				fetch(`/Calendar/GetImagenForAuto?idAuto=${vehiculoId}`, {
+					method: 'GET',
+				})
+					.then(response => {
+						if (!response.ok) {
+							throw new Error('Error al obtener la imagen del automóvil');
+						}
+						return response.json();
+					})
+					.then(data => {
+						// Verificar si se recibió la URL de la imagen
+						if (data.imageUrl) {
+							console.log(data.imageUrl)
+							// Obtener la URL de la imagen
+							const imagenUrl = data.imageUrl;
+							// Establecer la imagen en el elemento de imagen en tu página web
+							const imagenElement = document.getElementById('imagenVehiculo');
+							imagenElement.src = imagenUrl;
+							imagenElement.alt = 'Imagen del vehículo';
+
+							
+						} else {
+							// Mostrar un mensaje de imagen no encontrada si no se recibió ninguna URL de imagen
+							console.log('No se encontró ninguna imagen para el vehículo.');
+						}
+					})
+					.catch(error => {
+						console.error('Error al obtener la imagen del automóvil:', error);
+						// Mostrar un mensaje de error en caso de fallo en la solicitud
+					});
+			}
+
+
+
+		}
+		function mostrarVehiculo(indice) {
+			return new Promise(resolve => {
+				vehiculos.forEach(function (vehiculo, index) {
+					vehiculo.style.display = index === indice ? 'block' : 'none';
+				});
+				var enlaceActual = vehiculos[indice].querySelector('a');
+				vehiculoId = enlaceActual.getAttribute('data-vehiculo-id');
+				console.log('ID del vehículo:', vehiculoId);
+
+				if (calendar) {
+					resolve(); // Resuelve la promesa después de actualizar vehiculoId
+				} else {
+					console.error('Error: La variable "calendar" no está definida.');
+					resolve(); // También resuelve en caso de error para evitar bloqueos
+				}
+			})
+				.then(() => {
+					cargarEventosEnCalendario(); // Llama a cargarEventosEnCalendario después de que vehiculoId se haya actualizado
+				});
+		}
+
+		
+		function mostrarVehiculoAnterior() {
+			indiceActual = (indiceActual - 1 + vehiculos.length) % vehiculos.length;
+			mostrarVehiculo(indiceActual);
+		}
+
+		function mostrarVehiculoSiguiente() {
+			indiceActual = (indiceActual + 1) % vehiculos.length;
+			mostrarVehiculo(indiceActual);
+		}
+
+		mostrarVehiculo(indiceActual);
+		function eliminarReserva(eventId) {
+			fetch('/Calendar/CancelarReserva?eventId=' + eventId, {
+				method: 'POST',
+			})
+				.then(response => response.json())
+				.then(data => {
+					if (data.success) {
+						// Recargar la página o actualizar la lista de reservas
+						// según lo que necesites hacer después de eliminar la reserva
+						location.reload();
+					} else {
+						// Mostrar mensaje de error si la eliminación no fue exitosa
+						alert('Error al eliminar la reserva: ' + data.message);
+					}
+				})
+				.catch(error => {
+					console.error('Error al eliminar la reserva:', error);
+					alert('Error al eliminar la reserva. Por favor, inténtalo de nuevo.');
+				});
+		}
+
+
+
+		/*
+
+		*/
+
+
+		//
+		document.addEventListener("DOMContentLoaded", function () {
+			// Supongamos que esto es algún evento de clic en tu interfaz de usuario
+
+
+
+
+			// Manejar clic en botón Pagar
+			document.querySelectorAll('.pagar-btn').forEach(function (button) {
+				button.addEventListener('click', function () {
+					var eventId = this.getAttribute('data-event-id');
+					window.location.href = '/Calendar/Pay?eventId=' + eventId;
+				});
+			});
+			//boton eliminar
+			document.querySelectorAll('.eliminar-btn').forEach(function (button) {
+				button.addEventListener('click', function () {
+					var eventId = this.getAttribute('data-event-id');
+
+					// Mostrar el mensaje de confirmación antes de eliminar la reserva
+					Swal.fire({
+						title: '¿Estás seguro?',
+						text: 'Una vez cancelada, no podrás recuperar esta reserva.',
+						icon: 'warning',
+						showCancelButton: true,
+						confirmButtonColor: '#3085d6',
+						cancelButtonColor: '#d33',
+						confirmButtonText: 'Sí, cancelar reserva',
+						cancelButtonText: 'Cancelar'
+					}).then((result) => {
+						if (result.isConfirmed) {
+							// Si el usuario confirma la cancelación, realizar la solicitud de eliminación
+							eliminarReserva(eventId);
+						}
+					});
+				});
+			});
+			// Manejar clic en botón Generar Factura
+			document.querySelectorAll('.generar-factura-btn').forEach(function (button) {
+				button.addEventListener('click', function () {
+					var eventId = this.getAttribute('data-event-id');
+					generarFactura(eventId);
+				});
+			});
+			// Función para realizar la solicitud AJAX para Generar Factura
+			function generarFactura(eventId) {
+				// Hacer una solicitud al servidor para generar el PDF de la reserva específica
+				fetch('/MisReservas/GeneratePdf?eventId=' + eventId, {
+					method: 'GET',
+				})
+					.then(response => response.blob())
+					.then(blob => {
+						var url = window.URL.createObjectURL(blob);
+						var a = document.createElement('a');
+						a.href = url;
+						a.download = 'Reserva_' + eventId + '.pdf'; // Cambiar el nombre del archivo PDF
+						document.body.appendChild(a);
+						a.click();
+						document.body.removeChild(a);
+						window.URL.revokeObjectURL(url);
+					})
+					.catch(error => {
+						console.error('Error al exportar a PDF:', error);
+						alert('Error al exportar a PDF. Por favor, inténtalo de nuevo.');
+					});
+			}
+
+			/////////////////////CALENDER////////////////////////
+
+			const calendarEl = document.getElementById('calendar');
+
+			calendar = new FullCalendar.Calendar(calendarEl, {
+				initialView: 'timeGridWeek',
+				headerToolbar: {
+					left: 'prev,next',
+					center: 'title',
+					right: 'today'
+				},
+				selectable: true,
+				slotMinTime: '09:00:00',
+				slotMaxTime: '18:00:00',
+				allDaySlot: false,
+				//EVENTOS MOSTRADOS
+
+				////VISTAS
+				views: {
+					timeGridDay: {
+						slotMinTime: '09:00:00',
+						slotMaxTime: '18:00:00',
+						allDaySlot: false,
+						selectable: true,
+					}
+				},
+				eventContent: function (arg) {
+					const div = document.createElement('div');
+					div.innerHTML = arg.event.title;
+					return { domNodes: [div] };
+				},
+				eventDidMount: function (arg) {
+					const eventEl = arg.el;
+					if (arg.event.extendedProps.estadoId === 1) {
+						// Estado Pendiente (colorear de verde)
+						eventEl.style.backgroundColor = 'green';
+						eventEl.style.color = 'white';
+						// Agregar un manejador para el clic en el evento
+						eventEl.addEventListener('click', function () {
+							Swal.fire({
+								icon: 'info',
+								title: 'Información',
+								text: 'Esta reserva está ocupada.'
+							});
+						});
+					} else if (arg.event.extendedProps.estadoId === 2) {
+						// Estado Activo (colorear de naranja)
+						eventEl.style.backgroundColor = 'orange';
+						eventEl.style.color = 'white';
+						// Agregar un manejador para el clic en el evento
+						eventEl.addEventListener('click', function () {
+							Swal.fire({
+								icon: 'info',
+								title: 'Información',
+								text: 'Esta reserva está pendiente.'
+							});
+						});
+					}
+				},
+			});
+			///// ADAPTACION
+			function handleCalendarSize() {
+				const screenWidth = window.innerWidth;
+				if (screenWidth < 600) {
+					const today = new Date();
+					calendar.changeView('timeGridDay');
+				} else {
+					calendar.changeView('timeGridWeek');
+				}
+			}
+			function prev() {
+				vehiculoId = 0;
+
+				calendar.prev();
+
+
+			}
+
+			function next() {
+				vehiculoId = 0;
+
+				calendar.next();
+
+			}
+
+			function today() {
+				vehiculoId = 0;
+
+				calendar.today();
+
+			}
+			// Llamar a la función al cargar la página y al cambiar el tamaño de la ventana
+			handleCalendarSize();
+			window.addEventListener('resize', handleCalendarSize);
+			calendar.render();
+		});
+		cargarEventosEnCalendario();
+		////////// SOLICITUDES CALENDER
+		
+	</script>
+</body>
+</html>

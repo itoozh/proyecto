@@ -1,0 +1,99 @@
+﻿@model AppWeb.Models.Vehiculo
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .hidden-id {
+            display: none;
+        }
+
+        .img-vehicle {
+            max-width: 35%;
+            height: auto;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <h4 class="text-center">Detalles del Vehículo</h4>
+        <hr />
+
+
+        <dl class="row">
+
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Nombre)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Nombre)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Marca)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Marca)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Año)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Año)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Color)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Color)
+            </dd>
+            <dt class="col-sm-2 hidden-id" data-IdAuto="@Model.IdAuto">
+                @Html.DisplayFor(model => model.IdAuto)
+            </dt>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Imagen)
+            </dt>
+            <dd class="col-sm-10">
+                <img class="img-vehicle" src="data:@Model.Imagen?.ImagenMimeType;base64,@Convert.ToBase64String(Model.Imagen?.ImagenData)" />
+            </dd>
+        </dl>
+
+
+        <div class="text-center mt-4">
+            <a id="reservaLink" class="btn btn-primary" href="#">Reserva</a>
+            <a class="btn btn-secondary" asp-action="Index">Busca Carros</a>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $("#reservaLink").click(function (event) {
+                event.preventDefault();
+                var IdAuto = $(".hidden-id").data("idauto");
+                console.log("Valor de IdAuto:", IdAuto);
+
+                // Realiza la redirección a la acción Calender del controlador Vehiculoes con el IdAuto
+                window.location.href = "/Vehiculoes/Calender?idAuto=" + IdAuto;
+            });
+        });
+    </script>
+
+
+
+
+</body>
+</html>

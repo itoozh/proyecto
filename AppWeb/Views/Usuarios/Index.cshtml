@@ -1,0 +1,182 @@
+﻿@model IEnumerable<AppWeb.Models.Usuario>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        body, html {
+            overflow: auto;
+            font-family: 'Montserrat', sans-serif;
+            height: 100%;
+            margin: 0;
+            padding-bottom: 50px; /* Ajusta este valor según tus necesidades para proporcionar espacio para la barra de desplazamiento */
+        }
+
+        .password-mask {
+            letter-spacing: 8px; /* Espacio entre caracteres para ocultar la contraseña */
+        }
+
+        .alert {
+            position: fixed;
+            top: 80px;
+            right: 10px;
+            z-index: 9999;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #dff0d8; /* Color de fondo verde claro */
+            color: #3c763d; /* Color de texto verde oscuro */
+            width: 320px;
+        }
+
+            .alert button {
+                color: #31708f; /* Color del botón de cerrar */
+            }
+
+
+        table {
+            margin-top: 20px;
+        }
+
+        th, td {
+            text-align: center;
+        }
+
+        .btn {
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 10px;
+        }
+
+        #btnPrint {
+            background-color: #FF6B00; /* Naranja */
+            border-color: #FF6B00; /* Naranja */
+            color: #FFFFFF; /* Blanco */
+            margin-top: 10px;
+        }
+
+            #btnPrint:hover {
+                background-color: #D45500; /* Naranja más oscuro al pasar el ratón */
+                border-color: #D45500; /* Naranja más oscuro al pasar el ratón */
+            }
+
+        #content {
+            background-color: #000000; /* Negro */
+            color: #FFFFFF; /* Blanco */
+            padding: 20px;
+            margin-top: 10px;
+            border-radius: 8px;
+        }
+    </style>
+
+    <style type="text/css" media="print">
+        /* Estilos de impresión */
+        body {
+            visibility: hidden;
+        }
+
+        #content {
+            visibility: visible;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p>
+            <a class="btn btn-primary" asp-action="Create" style="background-color: #FF6B00; border-color: #FF6B00;">Crear Nuevo</a>
+            <a class="btn btn-secondary ml-2" asp-area="" asp-controller="Home" asp-action="IndexMaster" style="background-color: #000000; border-color: #000000;">Volver al Inicio</a>
+        </p>
+
+        <table class="table table-striped table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th>Usuario</th>
+                    <th>Celular</th>
+                    <th>Dirección de Correo</th>
+                    <th>Clave</th>
+                    <th>Cédula</th>
+                    <th>Rango</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.NombreUsuario)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Celular)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Correo)</td>
+                        <td>
+                            @{
+                                var maskedPassword = new string('*', Math.Min(5, item.Contrasena.Length));
+                            }
+                            <span class="password-mask">@maskedPassword</span>
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.Cedula)</td>
+                        <td>@Html.DisplayFor(modelItem => item.IdRolNavigation.NombreRol)</td>
+                        <td>
+                            <a class="btn btn-info" asp-action="Edit" style="background-color: #FF6B00; border-color: #FF6B00;" asp-route-id="@item.Id">Editar</a> |
+                            <a class="btn btn-secondary" asp-action="Details" style="background-color: #000000; border-color: #000000;" asp-route-id="@item.Id">Detalles</a> |
+                            <a class="btn btn-danger" asp-action="Delete" style="background-color: red; border-color: red;" asp-route-id="@item.Id">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <button id="btnPrint" class="btn btn-primary">Generar Reporte</button>
+
+        @if (ViewData["MensajeExitoso"] != null)
+        {
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Éxito',
+                    html: '@ViewData["MensajeExitoso"]',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK'
+                });
+            </script>
+        }
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        document.getElementById('btnPrint').addEventListener('click', function () {
+            exportToPdf();
+        });
+
+        function exportToPdf() {
+            fetch('@Url.Action("GeneratePdf", "Usuarios")', {
+                method: 'GET',
+            })
+                .then(response => response.blob())
+                .then(blob => {
+                    var url = window.URL.createObjectURL(blob);
+                    var a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'Usuarios.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                })
+                .catch(error => {
+                    console.error('Error al exportar a PDF:', error);
+                    alert('Error al exportar a PDF. Por favor, inténtalo de nuevo.');
+                });
+        }
+    </script>
+</body>
+</html>

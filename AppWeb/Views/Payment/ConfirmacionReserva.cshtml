@@ -1,0 +1,240 @@
+﻿@{
+    ViewData["Title"] = "Confirmación de Reserva";
+}
+
+<style>
+    .payment-container {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .payment-option {
+        text-align: center;
+        padding: 20px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        cursor: pointer;
+        width: 400px; /* Ancho fijo para ambos contenedores */
+        height: auto;
+        margin-top:10px;
+        background-color: lightblue; /* Cambiado a color verde */
+        font-size: 18px; /* Ajusta el tamaño del texto según tus preferencias */
+        font-weight: bold; /* Aplica negritas */
+
+    }
+
+       
+
+    .payment-option-efectivo {
+        text-align: center;
+        padding: 20px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        cursor: pointer;
+        width: 400px; /* Ancho fijo para ambos contenedores */
+        margin-top: 10px;
+        height: 280px;
+        background-color: #ccffcc; /* Cambiado a color verde */
+        font-size: 20px; /* Ajusta el tamaño del texto según tus preferencias */
+        font-weight: bold; /* Aplica negritas */
+        font-family: 'Montserrat', sans-serif; /* Cambia la fuente a Montserrat
+    }
+
+        .payment-option:hover {
+            background-color: #f5f5f5;
+        }
+
+    .payment-option img {
+        max-width: 100%; /* Ajustar la imagen al ancho del contenedor */
+        margin-top: 10px; /* Espaciado entre el texto y la imagen */
+
+    }
+
+    .payment-option-efectivo img {
+        max-width: 100%; /* Ajustar la imagen al ancho del contenedor */
+        margin-top: 10px; /* Espaciado entre el texto y la imagen */
+        height:auto;
+        width:200px;
+    }
+
+    .alert-info {
+        font-size: 28px; /* Texto más grande para mayor énfasis */
+        padding: 20px;
+        text-align: center;
+        margin-top: 20px;
+        background-color: #4CAF50; /* Verde más intenso para destacar */
+        color: white;
+        max-width: 1050px;
+        margin-left: auto;
+        margin-right: auto;
+        font-family: 'Montserrat', sans-serif;
+        border-radius: 8px;
+    }
+</style>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div class="alert-info" role="alert">
+        <p>Seleccione su Método de Pago ($)</p>
+    </div>
+
+    <div class="payment-container">
+        <!-- PayPal con tarjeta de débito/crédito -->
+        <div class="payment-option" id="paypal-button-container">
+            <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_200x51.png" alt="PayPal">
+            <p>Pagar con PayPal</p>
+        </div>
+
+        <!-- Efectivo -->
+        <div class="payment-option-efectivo" id="efectivo-btn">
+            <i class="fas fa-money-bill-wave fa-3x"></i>
+            <p>Pagar en Efectivo</p>
+            <img src="~/image/efectivo-imagen.png" alt="Efectivo Imagen">
+        </div>
+    </div>
+
+    <script src="https://www.paypal.com/sdk/js?client-id=AcrS6ngG75xT_PzfMNUb9jI75q6pYFnxtsPGHrEW4GsZ-7KLF3u8Jk9VIicZN4rRCBExtdvdQ2wJTAbh&currency=USD"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Almacena eventId en una variable para que sea accesible en onApprove
+            let eventId;
+
+            // Configuración de PayPal
+            paypal.Buttons({
+                createOrder: function (data, actions) {
+                    // Obtén el eventId de la URL
+                    const urlParams = new URLSearchParams(window.location.search);
+                    eventId = urlParams.get('eventId');
+                    console.log('eventId:', eventId);
+
+                    // Asegúrate de que eventId tenga un valor antes de realizar la solicitud
+                    if (eventId) {
+                        // Hacer una solicitud al servidor para obtener el monto
+                        return fetch('/Payment/ProcessPayment', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ eventId: eventId }) // Incluir eventId en el cuerpo de la solicitud
+                        })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error("Error en la solicitud al servidor. Código: " + response.status);
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                if (data.success) {
+                                    // Puedes enviar el eventId y el monto con la orden
+                                    return actions.order.create({
+                                        purchase_units: [{
+                                            amount: {
+                                                value: data.amount.toString()
+                                            },
+                                            custom_id: eventId  // Envía el eventId como custom_id
+                                        }]
+                                    });
+                                } else {
+                                    console.error("Error al obtener el monto del servidor:", data.message);
+                                }
+                            })
+                            .catch(error => {
+                                console.error("Error en la solicitud al servidor:", error);
+                            });
+                    } else {
+                        console.error("eventId no encontrado en la URL");
+                    }
+                },
+                onApprove: function (data, actions) {
+                    // Captura el resultado de la autorización y realiza las operaciones necesarias
+                    return actions.order.capture().then(function (details) {
+                        // Redirige a la página de pago exitoso u otras acciones según sea necesario
+                        window.location.href = '/Payment/PagoExitoso?eventId=' + eventId;
+                    });
+                }
+            }).render('#paypal-button-container');
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Manejar clic en botón Efectivo
+            document.getElementById('efectivo-btn').addEventListener('click', function () {
+                // Llamada a la función realizarPago al hacer clic en el botón de Efectivo
+                realizarPago('Efectivo');
+            });
+        });
+
+        function realizarPago(metodo) {
+            // Obtén el eventId de la URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const eventId = urlParams.get('eventId');
+            console.log('eventId:', eventId);
+
+            // Asegúrate de que eventId tenga un valor antes de realizar la solicitud
+            if (eventId) {
+                // Hacer una solicitud al servidor para obtener el monto
+                fetch('/Payment/ProcessPayment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ eventId: eventId, metodo: metodo })
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Error en la solicitud al servidor. Código: " + response.status);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            if (metodo === 'Efectivo') {
+                                // Cambia el estado a "Activo" solo si es método "Efectivo"
+                                fetch('/Payment/CambiarEstado', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({ eventId: eventId, estado: 'Activo' })
+                                })
+                                    .then(response => {
+                                        if (!response.ok) {
+                                            throw new Error("Error al cambiar el estado. Código: " + response.status);
+                                        }
+                                        return response.json();
+                                    })
+                                    .then(data => {
+                                        if (!data.success) {
+                                            console.error("Error al cambiar el estado:", data.message);
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error("Error al cambiar el estado:", error);
+                                    });
+                            }
+
+                            // Redirige a la página de pago exitoso u otras acciones según sea necesario
+                            window.location.href = '/Payment/PagoExitoso?eventId=' + eventId;
+                        } else {
+                            console.error("Error al obtener el monto del servidor:", data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error en la solicitud al servidor:", error);
+                    });
+            } else {
+                console.error("eventId no encontrado en la URL");
+            }
+        }
+    </script>
+
+</body>
+</html>

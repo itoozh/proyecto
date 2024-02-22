@@ -1,0 +1,57 @@
+﻿@model AppWeb.Models.Vehiculo
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+
+    <h4>Vehiculo</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <!-- Otros campos de formulario -->
+                <div class="form-group">
+                    <label asp-for="Nombre" class="control-label"></label>
+                    <input asp-for="Nombre" class="form-control" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+
+                <!-- Campo para seleccionar una imagen -->
+                <div class="form-group">
+                    <label for="fileInput">Seleccionar Imagen</label>
+                    <input type="file" id="fileInput" name="file" accept=".jpg, .jpeg, .png" />
+                </div>
+
+                <!-- Vista previa de la imagen seleccionada (si tienes una lista de nombres) -->
+                @if (Model.Imagen != null)
+                {
+                    <div class="form-group">
+                        <label>Vista previa de la Imagen</label>
+                        <img src="data:@Model.Imagen.ImagenMimeType;base64,@Convert.ToBase64String(Model.Imagen.ImagenData)" alt="Imagen" width="100" />
+                    </div>
+                }
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+</body>
+</html>

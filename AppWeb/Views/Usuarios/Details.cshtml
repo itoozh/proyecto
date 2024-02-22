@@ -1,0 +1,120 @@
+﻿@model AppWeb.Models.Usuario
+@{
+    ViewData["Title"] = "Detalles de Usuario";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            overflow: auto;
+            font-family: 'Montserrat', sans-serif;
+            height: 100%;
+            margin: 0;
+            padding-bottom: 50px; /* Ajusta este valor según tus necesidades para proporcionar espacio para la barra de desplazamiento */
+        }
+
+        .container-2 {
+            background-color: floralwhite; /* Fondo negro para el contenedor */
+            color: black; /* Texto blanco */
+            border-color: #000000;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Sombra ligera */
+        }
+
+        h4 {
+            color: black; /* Título en azul */
+        }
+
+        .row {
+            margin-bottom: 15px;
+        }
+
+        .password-mask {
+            letter-spacing: 8px; /* Espaciado para ocultar la contraseña */
+        }
+
+        .btn {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        #backToList {
+            background-color: #dc3545; /* Color de fondo rojo */
+            border-color: #dc3545; /* Color del borde rojo */
+            color: #ffffff; /* Letras blancas */
+        }
+
+        dl.row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        dt.col-sm-2 {
+            flex: 0 0 20%; /* Ancho del 20% para los nombres */
+            padding-right: 15px; /* Espaciado a la derecha para los nombres */
+            white-space: nowrap; /* Evitar el salto de línea para los nombres */
+        }
+
+        dd.col-sm-10 {
+            flex: 0 0 80%; /* Ancho del 80% para los detalles */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-2">
+        <h4>Detalles del Usuario</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                Nombres Completos:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.NombreUsuario)
+            </dd>
+            <dt class="col-sm-2">
+                Correo Electrónico:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Correo)
+            </dd>
+            <dt class="col-sm-2">
+                Contraseña:
+            </dt>
+            <dd class="col-sm-10">
+                @{
+                    var maskedPassword = new string('*', Math.Min(5, Model.Contrasena.Length));
+                }
+                <span class="password-mask">@maskedPassword</span>
+            </dd>
+            <dt class="col-sm-2">
+                Cédula de Identidad:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Cedula)
+            </dd>
+            <dt class="col-sm-2">
+                Número Celular:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Celular)
+            </dd>
+            <dt class="col-sm-2">
+                Rol:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.IdRolNavigation.NombreRol)
+            </dd>
+        </dl>
+        <a class="btn btn-info" asp-action="Edit" style="background-color: #FF6B00; border-color: #FF6B00;" asp-route-id="@Model?.Id">Editar</a> |
+        <a id="backToList" class="btn btn-danger" style="background-color: #000000; border-color: #000000;" asp-action="Index">Volver a la Lista</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,97 @@
+CREATE TABLE usuario (
+    Id INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    nombre_usuario VARCHAR(255) NOT NULL,
+    correo VARCHAR(255) UNIQUE NOT NULL,
+    contrasena VARCHAR(255) NOT NULL,
+);
+
+ALTER TABLE usuario
+ADD cedula VARCHAR(10); 
+
+CREATE TABLE rol (
+    IdRol INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    NombreRol VARCHAR(50) NOT NULL
+);
+
+ALTER TABLE usuario
+ADD IdRol INT NULL,
+FOREIGN KEY (IdRol) REFERENCES Rol(IdRol);
+
+INSERT INTO Rol (NombreRol) VALUES ('admin');
+INSERT INTO Rol (NombreRol) VALUES ('user');
+
+
+
+
+CREATE TABLE Pago
+(
+    PagoId INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    Monto DECIMAL(18, 2), -- Puedes ajustar la precisión y escala según tus necesidades
+    Nombre NVARCHAR(60) -- Ajusta la longitud según tus necesidades
+);
+
+CREATE TABLE Events
+(
+    EventId INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    Title NVARCHAR(255), -- Ajusta la longitud según tus necesidades
+    Start DATETIME,
+    [End] DATETIME, -- Se utiliza corchetes para 'End' ya que es una palabra reservada en SQL Server
+    AllDay BIT,
+    UserId INT,
+    PagoId INT,
+CONSTRAINT FK_Usuario FOREIGN KEY (UserId) REFERENCES usuario(Id),
+    CONSTRAINT FK_Pago FOREIGN KEY (PagoId) REFERENCES Pago(PagoId)
+
+);
+
+
+CREATE TABLE imagen
+(
+    IdImagen INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    ImagenData VARBINARY(MAX), -- Cambiar a un tamaño máximo adecuado para tus imágenes
+    ImagenMimeType NVARCHAR(255) -- Ajusta la longitud según tus necesidades
+);
+
+CREATE TABLE Vehiculos (
+    id_auto int PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    nombre VARCHAR(255),
+    marca VARCHAR(255),
+    año INT,
+    color VARCHAR(50),
+    ImagenId INT,
+    
+    CONSTRAINT FK_Imagen FOREIGN KEY (ImagenId) REFERENCES imagen(IdImagen)
+
+);
+
+ALTER TABLE Events
+ADD VehiculoId INT;
+
+ALTER TABLE Events
+ADD CONSTRAINT FK_Vehiculo FOREIGN KEY (VehiculoId) REFERENCES Vehiculos(id_auto);
+
+
+
+-- Crear procedimiento almacenado para validar correo y cédula
+CREATE PROCEDURE ValidarRegistroUsuario
+    @correo VARCHAR(255),
+    @cedula VARCHAR(10),
+    @existeCorreo BIT OUTPUT,
+    @existeCedula BIT OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Inicializar variables de salida
+    SET @existeCorreo = 0;
+    SET @existeCedula = 0;
+
+    -- Validar si existe el correo
+    IF EXISTS (SELECT 1 FROM usuario WHERE correo = @correo)
+        SET @existeCorreo = 1;
+
+    -- Validar si existe la cédula
+    IF EXISTS (SELECT 1 FROM usuario WHERE cedula = @cedula)
+        SET @existeCedula = 1;
+END;
+

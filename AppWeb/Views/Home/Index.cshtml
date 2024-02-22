@@ -1,0 +1,119 @@
+﻿@{
+    ViewData["Title"] = "Palms Cars";
+    var userIdClaim = User.FindFirst("IdRolClaim")?.Value;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Agrega el enlace a la fuente Montserrat -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap">
+
+    <link rel="stylesheet" href="~/css/site.css">
+    
+</head>
+<style>
+    h2{
+    font-size: 30px; /* Ajusta el tamaño del texto "MUSTANG 1998" según tus necesidades */
+     text-align: center; 
+     font-weight: bold;
+ }
+</Style>
+
+<body>
+    <div class="fondo-negro">
+        <div class="contenido-fondo">
+            <h1>MUSTANG 1998</h1>
+            <p>Con la mejor conducción y características de lujo.</p>
+            <button class="otro-boton" id="otro-boton">RESERVAR AHORA</button>            
+        </div>
+        <img class="imagen-fondo" src="~/image/mustang.jpg" alt="MUSTANG 1998">
+    </div>
+
+
+    <div class="centrado">
+        <h2 >CONOCE MÁS MODELOS</h2>
+        <div>Reserva una cita y prueba tu mejor estilo al volante</div>
+        <button class="ver-mas-btn" id="ver-mas-btn">Ver Más</button>
+        <button class="ocultar-btn" id="ocultar-btn">Ocultar</button>
+    </div>
+    <div class="img-container mas-modelos">
+        <div class="img hidden">
+            <div class="img-box">
+                <img src="~/image/AUDI.png" alt="Audi" />
+                <button class="carro-btn">AUDI</button>
+            </div>
+        </div>
+        <div class="img hidden">
+            <div class="img-box">
+                <img src="~/image/BMW.png" alt="BMW" />
+                <button class="carro-btn">BMW</button>
+            </div>
+        </div>
+        <div class="img hidden">
+            <div class="img-box porsche-container">
+                <img src="~/image/PORSCHE.png" alt="Porsche" />
+                <button class="carro-btn">PORSCHE</button>
+            </div>
+        </div>
+        <div class="img hidden">
+            <div class="img-box">
+                <img src="~/image/MUSTANG2.png" alt="Otro Mustang" />
+                <button class="carro-btn">MUSTANG 1997</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var verMasBtn = document.getElementById("ver-mas-btn");
+        var ocultarBtn = document.getElementById("ocultar-btn");
+        var masModelos = document.querySelector(".mas-modelos");
+
+        verMasBtn.addEventListener("click", function () {
+            verMasBtn.style.display = "none";
+            ocultarBtn.style.display = "block";
+            masModelos.style.display = "flex";
+
+            // Mostrar las otras imágenes de coches
+            var otrasImagenes = document.querySelectorAll(".img.hidden");
+            otrasImagenes.forEach(function (img) {
+                img.classList.remove("hidden");
+            });
+        });
+
+        ocultarBtn.addEventListener("click", function () {
+            verMasBtn.style.display = "block";
+            ocultarBtn.style.display = "none";
+            masModelos.style.display = "none";
+
+            // Ocultar las otras imágenes de coches
+            var otrasImagenes = document.querySelectorAll(".img.hidden");
+            otrasImagenes.forEach(function (img) {
+                img.classList.add("hidden");
+            });
+        });
+
+    </script>
+    <script>
+        var reservarBtn = document.getElementById("otro-boton");
+        var userIdClaim = "@userIdClaim"; // Obtén el valor del claim del usuario (asegúrate de incluirlo en tu vista)
+
+        reservarBtn.addEventListener("click", function () {
+            // Verificar si el usuario ha iniciado sesión
+            if (userIdClaim) {
+                // Si el usuario ha iniciado sesión, redirige a la funcionalidad original (Vehiculoes/Index)
+                window.location.href = "/Vehiculoes/Index";
+            } else {
+                // Si el usuario no ha iniciado sesión, redirige al formulario de registro (o la página que desees)
+                window.location.href = "Inicio/IniciarSesion";
+            }
+        });
+    </script>
+
+</body>
+
+</html>

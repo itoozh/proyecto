@@ -1,0 +1,104 @@
+﻿@model IEnumerable<AppWeb.Models.Pago>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <title>Pagos</title>
+    <style>
+        body, html {
+            overflow: auto;
+            font-family: 'Montserrat', sans-serif;
+            height: 100%;
+            margin: 0;
+            padding-bottom: 50px; /* Ajusta este valor según tus necesidades para proporcionar espacio para la barra de desplazamiento */
+        }
+
+        .password-mask {
+            letter-spacing: 8px; /* Espacio entre caracteres para ocultar la contraseña */
+        }
+
+        table {
+            margin-top: 20px;
+        }
+
+        th, td {
+            text-align: center;
+        }
+
+        .btn {
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 10px;
+        }
+
+        #btnPrint {
+            background-color: #FF6B00; /* Naranja */
+            border-color: #FF6B00; /* Naranja */
+            color: #FFFFFF; /* Blanco */
+            margin-top: 10px;
+        }
+
+            #btnPrint:hover {
+                background-color: #D45500; /* Naranja más oscuro al pasar el ratón */
+                border-color: #D45500; /* Naranja más oscuro al pasar el ratón */
+            }
+
+        #content {
+            background-color: #000000; /* Negro */
+            color: #FFFFFF; /* Blanco */
+            padding: 20px;
+            margin-top: 10px;
+            border-radius: 8px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <p>
+            <!-- Botón de regreso a IndexMaster -->
+            <a class="btn btn-secondary ml-2" asp-area="" asp-controller="Home" asp-action="IndexMaster" style="background-color: #000000; border-color: #000000;">Volver al Inicio</a>
+            <a class="btn btn-primary" asp-action="Create" style="background-color: #FF6B00; border-color: #FF6B00;">Crear Nuevo</a>
+        </p>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Monto)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nombre)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Monto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            <a class="btn btn-info" asp-action="Edit" style="background-color: #FF6B00; border-color: #FF6B00;" asp-route-id="@item.PagoId">Editar</a> |
+                            <a class="btn btn-secondary" asp-action="Details" style="background-color: #000000; border-color: #000000;" asp-route-id="@item.PagoId">Detalles</a> |
+                            <a class="btn btn-danger" asp-action="Delete" style="background-color: red; border-color: red;" asp-route-id="@item.PagoId">Borrar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

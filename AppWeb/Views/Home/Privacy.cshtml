@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-easybutton@2.4.0/src/easy-button.css" />
+    <style>
+        body {
+            text-align: center;
+        }
+
+        #map-container {
+            width: 40%;
+            margin: 0 auto;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+
+        #info-container {
+            width: 35%;
+            display: inline-block;
+            vertical-align: top;
+            padding: 20px;
+            text-align: left;
+            font-size: 23px;
+        }
+
+            #info-container h3 {
+                font-size: 50px; /* Tamaño de fuente del título h3 */
+                color: black; /* Color del texto del título h3 */
+            }
+    </style>
+</head>
+<body>
+    <div id="info-container">
+        <h3>Palms Cars</h3>
+        <p>En Palms Cars, nos apasiona el mundo de los autos clásicos y creemos que cada viaje puede convertirse en una experiencia inolvidable. Somos una empresa dedicada al alquiler de autos clásicos, brindando a nuestros clientes la oportunidad de sumergirse en la nostalgia y el encanto que solo un vehículo clásico puede ofrecer.</p>
+    </div>
+
+    <div id="map-container">
+        <h2>Ubicación:</h2>
+        <div id="map"></div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-easybutton@2.4.0/src/easy-button.js"></script>
+    <script>
+        var latitude = -0.1566338;
+        var longitude = -78.4890461;
+
+        var map = L.map('map', {
+            center: [latitude, longitude],
+            zoom: 18,
+        });
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        L.marker([latitude, longitude]).addTo(map)
+            .bindPopup('¡Nuestra Ubicación Aquí!')
+            .openPopup();
+
+        // Agrega un botón personalizado para centrar y hacer zoom en la ubicación con un ícono
+        var centerButton = L.easyButton({
+            states: [{
+                stateName: 'center-map',
+                onClick: function (control) {
+                    map.setView([latitude, longitude], 18);
+                    control.state('center-map');
+                },
+                title: 'Centrar mapa',
+                icon: 'fa fa-crosshairs',
+            }],
+        });
+
+        centerButton.addTo(map);
+    </script>
+</body>
+</html>
