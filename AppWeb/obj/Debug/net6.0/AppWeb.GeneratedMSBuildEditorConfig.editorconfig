@@ -9,249 +9,251 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = AppWeb
 build_property.RootNamespace = AppWeb
-build_property.ProjectDir = C:\Users\Junior Bonilla\Desktop\Pi3\20-02-2024\Reserva16-2-2024\AppWeb\
+build_property.ProjectDir = C:\Users\User\RiderProjects\Integrador\proyecto\AppWeb\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Junior Bonilla\Desktop\Pi3\20-02-2024\Reserva16-2-2024\AppWeb
+build_property.MSBuildProjectDirectory = C:\Users\User\RiderProjects\Integrador\proyecto\AppWeb
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Auto/Create.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Auto/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0b1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Auto/Delete.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Auto/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0b1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Auto/Details.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Auto/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0b1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Auto/Edit.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Auto/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0b1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Auto/Index.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Auto/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0b1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Estadoes/Create.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Estadoes/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXN0YWRvZXNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Estadoes/Delete.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Estadoes/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXN0YWRvZXNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Estadoes/Details.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Estadoes/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXN0YWRvZXNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Estadoes/Edit.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Estadoes/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXN0YWRvZXNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Estadoes/Index.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Estadoes/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXN0YWRvZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Events/Create.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Events/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Events/Delete.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Events/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Events/Details.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Events/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Events/Edit.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Events/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Events/Index.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Events/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Home/Index.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Home/Privacy.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Imagens/Create.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Imagens/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW1hZ2Vuc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Imagens/Delete.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Imagens/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW1hZ2Vuc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Imagens/Details.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Imagens/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW1hZ2Vuc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Imagens/Edit.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Imagens/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW1hZ2Vuc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Imagens/Index.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Imagens/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW1hZ2Vuc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Inicio/IniciarSesion.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Inicio/IniciarSesion.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5pY2lvXEluaWNpYXJTZXNpb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Inicio/Registrarse.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Inicio/Registrarse.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5pY2lvXFJlZ2lzdHJhcnNlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Master/IndexGerencia.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Master/IndexGerencia.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFzdGVyXEluZGV4R2VyZW5jaWEuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Master/IndexMaster.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Master/IndexMaster.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFzdGVyXEluZGV4TWFzdGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/MisReservas/ImagenVehiculoPartial.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/MisReservas/ImagenVehiculoPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWlzUmVzZXJ2YXNcSW1hZ2VuVmVoaWN1bG9QYXJ0aWFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/MisReservas/Index.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/MisReservas/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWlzUmVzZXJ2YXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Payment/ConfirmacionReserva.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Payment/ConfirmacionReserva.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5bWVudFxDb25maXJtYWNpb25SZXNlcnZhLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Payment/PagoExitoso.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Payment/PagoExitoso.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5bWVudFxQYWdvRXhpdG9zby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Perfil/EditarPerfil.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Perfil/EditarPerfil.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyZmlsXEVkaXRhclBlcmZpbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Perfil/Index.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Perfil/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyZmlsXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Perfil/MostrarPerfil.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Perfil/MostrarPerfil.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyZmlsXE1vc3RyYXJQZXJmaWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Rols/Create.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Rols/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Rols/Delete.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Rols/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Rols/Details.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Rols/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Rols/Edit.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Rols/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Rols/Index.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Rols/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Shared/Error.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Tarifa/Create.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Tarifa/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyaWZhXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Tarifa/Delete.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Tarifa/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyaWZhXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Tarifa/Details.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Tarifa/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyaWZhXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Tarifa/Edit.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Tarifa/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyaWZhXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Tarifa/Index.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Tarifa/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyaWZhXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Usuarios/Create.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Usuarios/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Usuarios/Delete.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Usuarios/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Usuarios/Details.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Usuarios/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Usuarios/Edit.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Usuarios/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Usuarios/Index.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Usuarios/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Vehiculoes/Calender.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Vehiculoes/Calender.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWN1bG9lc1xDYWxlbmRlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Vehiculoes/Create.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Vehiculoes/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWN1bG9lc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Vehiculoes/Delete.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Vehiculoes/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWN1bG9lc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Vehiculoes/Details.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Vehiculoes/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWN1bG9lc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Vehiculoes/Edit.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Vehiculoes/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWN1bG9lc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Vehiculoes/Index.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Vehiculoes/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWN1bG9lc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Vehiculoes/Pay.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Vehiculoes/Pay.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWN1bG9lc1xQYXkuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/_ViewImports.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/_ViewStart.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Junior Bonilla/Desktop/Pi3/20-02-2024/Reserva16-2-2024/AppWeb/Views/Shared/_Layout.cshtml]
+[C:/Users/User/RiderProjects/Integrador/proyecto/AppWeb/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-nskxcf7d0a

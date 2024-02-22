@@ -77,7 +77,7 @@
 
 				<a asp-action="Details" asp-route-id="@primerEvento.VehiculoId" data-vehiculo-id="@primerEvento.VehiculoId">@primerEvento.Vehiculo.Nombre</a>
 				<div id="contenedorImagen">
-					<img id="imagenVehiculo" src="#" alt="Imagen del vehículo">
+					<img id="imagenVehiculo" src="#" alt="Vehiculo imagen">
 				</div>
 
 				<button class="flecha-derecha cambiarVehiculoBtn" onclick="mostrarVehiculoSiguiente()">❯</button>
@@ -89,18 +89,12 @@
 	<div id='calendar' class="calendarcontainer"></div>
 	<!-- ///////////////////////////////////////////////////  -->
 	<script>
-		/*
-						   VAR
-		*/
-
 		var vehiculos = document.querySelectorAll('.vehiculo');
 		var indiceActual = 0;
 		let calendar;
 		let selectedEventRange;
 		let vehiculoId = 0;
 		function cargarEventosEnCalendario() {
-
-
 
 			calendar.removeAllEvents(); // Limpiar eventos actuales
 
@@ -109,45 +103,26 @@
 				method: 'GET'
 
 			});
-
-			//aqui se crea una funcion para traer la imagen por id 
-			// var imagenes=imagenes del carro con ese id 
-			//verificar si imagenes tiene imagenes y si tiene obtener la primera y setear en el bloque de la imagen del html en un div 
-			if (vehiculoId != null) {
-				fetch(`/Calendar/GetImagenForAuto?idAuto=${vehiculoId}`, {
-					method: 'GET',
-				})
-					.then(response => {
-						if (!response.ok) {
-							throw new Error('Error al obtener la imagen del automóvil');
-						}
-						return response.json();
-					})
-					.then(data => {
-						// Verificar si se recibió la URL de la imagen
-						if (data.imageUrl) {
-							console.log(data.imageUrl)
-							// Obtener la URL de la imagen
-							const imagenUrl = data.imageUrl;
-							// Establecer la imagen en el elemento de imagen en tu página web
-							const imagenElement = document.getElementById('imagenVehiculo');
-							imagenElement.src = imagenUrl;
-							imagenElement.alt = 'Imagen del vehículo';
-
-							
-						} else {
-							// Mostrar un mensaje de imagen no encontrada si no se recibió ninguna URL de imagen
-							console.log('No se encontró ninguna imagen para el vehículo.');
-						}
-					})
-					.catch(error => {
-						console.error('Error al obtener la imagen del automóvil:', error);
-						// Mostrar un mensaje de error en caso de fallo en la solicitud
-					});
-			}
-
-
-
+		}
+		
+		function loadImageByVehicleId(vehiculoId) {
+			fetch(`/Calendar/GetImagenForAuto?idAuto=${vehiculoId}`, {
+				method: 'GET',
+			})
+			.then(data => {
+				if (data.imageUrl) {
+					console.log(data.imageUrl)
+					
+					const imagenUrl = data.imageUrl;
+					const imagenElement = document.getElementById('imagenVehiculo');
+					imagenElement.src = imagenUrl;
+				} else {
+					console.log('No se encontró ninguna imagen para el vehículo.');
+				}
+			})
+			.catch(error => {
+				console.error('Error al obtener la imagen del automóvil:', error);
+			});
 		}
 		function mostrarVehiculo(indice) {
 			return new Promise(resolve => {
@@ -156,13 +131,14 @@
 				});
 				var enlaceActual = vehiculos[indice].querySelector('a');
 				vehiculoId = enlaceActual.getAttribute('data-vehiculo-id');
+				loadImageByVehicleId(vehiculoId);
 				console.log('ID del vehículo:', vehiculoId);
 
 				if (calendar) {
-					resolve(); // Resuelve la promesa después de actualizar vehiculoId
+					resolve(); 
 				} else {
 					console.error('Error: La variable "calendar" no está definida.');
-					resolve(); // También resuelve en caso de error para evitar bloqueos
+					resolve();
 				}
 			})
 				.then(() => {
